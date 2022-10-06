@@ -18,15 +18,23 @@
 
 
   - name: install apache package
-    package: 
+    apt: 
      name:
-     tags: cap
       - apache2
       - libapache2-mod-php
      state: latest
      update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
+  
+  - name: copy main to server
+    copy: 
+      src: main.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+  
 - hosts: file_server
   become: true
   tasks: 
